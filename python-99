@@ -1,0 +1,36 @@
+import random
+from datetime import datetime
+
+from docx import Document
+from docx.shared import Pt
+from docx.shared import Inches
+from docx.oxml.ns import qn
+
+
+
+document = Document()
+paragraph = document.add_paragraph()
+paragraph.alignment = 1  # for left, 1 for right, 2 center, 3 justify ....
+font = paragraph.add_run("小九九口算").font
+font.size = Pt(20)
+# font.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+i = 0
+while i < 20:
+    paragraph = document.add_paragraph()
+    font = paragraph.add_run(str(random.randint(1, 9)) + " × "+str(random.randint(1, 9))+" =          "
+          +str(random.randint(1, 9)) + " × "+str(random.randint(1, 9))+" =          "
+          +str(random.randint(1, 9)) + " × "+str(random.randint(1, 9))+" =          "
+          +str(random.randint(1, 9)) + " × "+str(random.randint(1, 9))+" =          "
+          +str(random.randint(1, 9)) + " × "+str(random.randint(1, 9))+" =          "
+          +str(random.randint(1, 9)) + " × "+str(random.randint(1, 9))+" =          ").font
+    font.size = Pt(14)
+
+    if i == 10:
+        paragraph=document.add_paragraph("-------------------------------------------------"
+                                         +"------------------------------------------------"
+                                         +"---------------------")
+    i = i+1
+
+filename = datetime.now().strftime('%Y%m%d%H%M%S')
+print(filename)
+document.save(u'小九九'+filename+'.docx')
